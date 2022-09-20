@@ -1,0 +1,23 @@
+version: "3"
+Services:
+  localhost:
+     image: mysql:5.7
+     environment:
+       -MYSQL_ROOT-PASSWORD=root
+       -MYSQL_DATABASE=doctors_infoo
+       -MYSQL_USER=root
+       -MYSQL_PASSWORD=root
+       
+     ports:
+         - 3306:3306
+        
+        doctors_infoo:
+          image:doctors-infoo:latest
+          ports:
+            -8036:8036
+            restart: unless-stopped
+          build:
+             contaxt: ./
+             dockerfile: Dockerfile
+          depends_on:
+             -localhost 
